@@ -9,7 +9,8 @@ defaults
     timeout client 1m
     timeout server 1m
     option redispatch
-    balance roundrobin
+    balance source
+    hash-type consistent
 
 listen stats :1936
     mode http
