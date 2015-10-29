@@ -49,8 +49,8 @@ def get_services():
             endpoints["port"] = i.value
             continue
         endpoints["backends"].append(dict(name=container, addr=i.value))
-    for service in services:
-        services[service]["backends"].sort()
+
+    endpoints["backends"].sort()
     return services
 
 def generate_config(services):
