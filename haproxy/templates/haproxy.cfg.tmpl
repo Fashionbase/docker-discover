@@ -9,8 +9,7 @@ defaults
     timeout client 1m
     timeout server 1m
     option redispatch
-    balance source
-    hash-type consistent
+    balance roundrobin
 
 listen stats :1936
     mode http
@@ -21,7 +20,7 @@ listen stats :1936
     #stats auth Username:Password
 
 {% for service in services %}
-listen {{ service }}
+frontend {{ service }}
     bind *:{{services[service].port}}
     {% for backend in services[service].backends %}
     server {{ backend.name }} {{ backend.addr }} check inter 2s rise 3 fall 2{% endfor %}
