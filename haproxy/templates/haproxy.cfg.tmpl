@@ -21,6 +21,7 @@ listen stats :1936
 
 {% for service in services %}
 frontend {{ service }}
+    mode http
     bind *:{{services[service].port}}
     {% for backend in services[service].backends %}
     server {{ backend.name }} {{ backend.addr }} check inter 2s rise 3 fall 2{% endfor %}
