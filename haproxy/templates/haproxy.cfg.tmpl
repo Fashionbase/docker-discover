@@ -15,14 +15,18 @@ listen stats :1936
     mode http
     stats enable
     stats hide-version
-    #stats realm Haproxy\ Statistics
     stats uri /
-    #stats auth Username:Password
 
 {% for service in services %}
 frontend {{ service }}
     mode http
     bind *:{{services[service].port}}
+    use_backend {{ service }}-backend
+{% endfor %}
+
+{% for service in services %}
+    backend {{ service }}-backend
     {% for backend in services[service].backends %}
-    server {{ backend.name }} {{ backend.addr }} check inter 2s rise 3 fall 2{% endfor %}
+    server {{ backend.name }} {{ backend.addr }} check inter 2s rise 3 fall 2
+    {% endfor %}
 {% endfor %}
