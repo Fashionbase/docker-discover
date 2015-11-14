@@ -25,7 +25,8 @@ frontend {{ service }}
 {% endfor %}
 
 {% for service in services %}
-    backend {{ service }}-backend
+backend {{ service }}-backend
+    mode http
     {% for backend in services[service].backends %}
     server {{ backend.name }} {{ backend.addr }} check inter 2s rise 3 fall 2
     {% endfor %}
