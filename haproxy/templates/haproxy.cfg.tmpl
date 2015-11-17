@@ -17,13 +17,6 @@ listen stats :1936
     stats hide-version
     stats uri /
 
-{% for service in services %}
-frontend {{ service }}
-    mode http
-    bind *:{{services[service].port}}
-    use_backend {{ service }}-backend
-{% endfor %}
-
 frontend lb
     mode http
     bind *:80
