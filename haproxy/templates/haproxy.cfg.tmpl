@@ -25,6 +25,14 @@ frontend {{ service }}
 {% endfor %}
 
 {% for service in services %}
+frontend {{ service }}-acl
+    mode http
+    bind *:80
+    acl subdomain hdr(host) {{ service }}
+    use_backend {{ service }}-backend if subdomain
+{% endfor %}
+
+{% for service in services %}
 backend {{ service }}-backend
     mode http
     {% for backend in services[service].backends %}
