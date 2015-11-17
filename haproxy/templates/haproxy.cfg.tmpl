@@ -24,18 +24,18 @@ frontend {{ service }}
     use_backend {{ service }}-backend
 {% endfor %}
 
-{% for service in services %}
-frontend {{ service }}-acl
+frontend lb
     mode http
     bind *:80
+    {% for service in services %}
     acl subdomain hdr(host) {{ service }}
     use_backend {{ service }}-backend if subdomain
-{% endfor %}
+    {% endfor %}
 
 {% for service in services %}
 backend {{ service }}-backend
     mode http
     {% for backend in services[service].backends %}
-    server {{ backend.name }} {{ backend.addr }} check inter 2s rise 3 fall 2
+    server {{ backend.name }} {{ backend.addr }} check
     {% endfor %}
 {% endfor %}
