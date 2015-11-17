@@ -21,8 +21,8 @@ frontend lb
     mode http
     bind *:80
     {% for service in services %}
-    acl subdomain hdr(host) {{ service }}
-    use_backend {{ service }}-backend if subdomain
+    acl {{ service }}-acl hdr(host) {{ service }}
+    use_backend {{ service }}-backend if {{ service }}-acl
     {% endfor %}
 
 {% for service in services %}
