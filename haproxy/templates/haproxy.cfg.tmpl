@@ -9,6 +9,8 @@ defaults
     timeout client 1m
     timeout server 1m
     option redispatch
+    option httplog
+    option dontlognull
     balance roundrobin
 
 listen stats :1936
