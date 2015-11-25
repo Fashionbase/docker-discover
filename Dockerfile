@@ -17,6 +17,8 @@ ADD . /app
 
 WORKDIR /app
 
+RUN ln -sf /dev/stdout /var/log/haproxy.log
+
 EXPOSE 1936
 
 CMD ["python", "main.py"]
