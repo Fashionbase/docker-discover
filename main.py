@@ -9,7 +9,7 @@ import sys
 import time
 
 env = Environment(loader=PackageLoader('haproxy', 'templates'))
-POLL_TIMEOUT=5
+POLL_TIMEOUT=10
 
 signal.signal(signal.SIGCHLD, signal.SIG_IGN)
 
