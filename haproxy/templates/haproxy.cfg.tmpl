@@ -7,8 +7,8 @@ global
 
 defaults
     log global
-    mode tcp
-    timeout connect 5s
+    mode http
+    timeout connect 10s
     timeout client 1m
     timeout server 1m
     option redispatch
@@ -25,7 +25,6 @@ listen stats :1936
 frontend lb
     mode http
     bind *:80
-    redirect prefix http://www.fashionbase.com code 301 if { hdr(host) -i fashionbase.com }
     {% for service in services %}
     acl {{ service }}-acl hdr(host) {{ service }}
     use_backend {{ service }}-backend if {{ service }}-acl
