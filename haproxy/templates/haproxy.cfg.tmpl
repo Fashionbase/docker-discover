@@ -34,6 +34,6 @@ frontend lb
 backend {{ service }}-backend
     mode http
     {% for backend in services[service].backends %}
-    server {{ backend.name }} {{ backend.addr }} check
+    server {{ backend.name }} {{ backend.addr }} check inter 5s rise 3 fall 2
     {% endfor %}
 {% endfor %}
